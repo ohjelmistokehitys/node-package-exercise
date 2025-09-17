@@ -142,7 +142,7 @@ module.exports = convertToICalendar;
 
 Valitse jompikumpi tapa ja käytä sitä johdonmukaisesti sekä lähdekoodissa että asetustiedostoissa. [Määrittele `package.json`-tiedostoon, kumpaa moduulijärjestelmää pakettisi käyttää](https://nodejs.org/api/packages.html#type):
 
-```json
+```js
 {
   "type": "module" // tai "commonjs"
 }

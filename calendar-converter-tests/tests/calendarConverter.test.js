@@ -3,18 +3,18 @@ import convertToICalendar from '@example/calendar-converter';
 
 describe('convertToICalendar', () => {
 
-    it('converter module should export the function as default export', () => {
+    it('should be exported as the default export', () => {
         expect(typeof convertToICalendar).toBe('function');
     });
 
     it('should take a calendar object and return a string', () => {
-        const output = convertToICalendar(testInput);
+        const output = convertToICalendar(testCalendar);
 
         expect(typeof output).toBe('string');
     });
 
     it('should include VCALENDAR and VEVENT entries', () => {
-        const output = convertToICalendar(testInput);
+        const output = convertToICalendar(testCalendar);
 
         expect(output).toContain('BEGIN:VCALENDAR');
         expect(output).toContain('END:VCALENDAR');
@@ -23,26 +23,33 @@ describe('convertToICalendar', () => {
     });
 
     it('should handle empty events array', () => {
-        const noEvents = { ...testInput, events: [] };
+        // Copy the calendar, but set events to an empty array
+        const noEvents = { ...testCalendar, events: [] };
         const output = convertToICalendar(noEvents);
 
+        // Calendar structure should still be present
         expect(output).toContain('BEGIN:VCALENDAR');
         expect(output).toContain('END:VCALENDAR');
+
+        // But there should be no VEVENT entries
         expect(output).not.toContain('BEGIN:VEVENT');
     });
 
     it('should contain correct number of VEVENT entries', () => {
-        const output = convertToICalendar(testInput);
+        const output = convertToICalendar(testCalendar);
+
+        // Count occurrences of BEGIN:VEVENT
         const eventCount = (output.match(/BEGIN:VEVENT/g) || []).length;
 
-        expect(eventCount).toBe(testInput.events.length);
+        // Should match the number of events in the test calendar
+        expect(eventCount).toBe(testCalendar.events.length);
     });
 
     it('should contain event details', () => {
-        const output = convertToICalendar(testInput);
+        const output = convertToICalendar(testCalendar);
 
         // Check that each event's details are included
-        testInput.events.forEach(event => {
+        testCalendar.events.forEach(event => {
             expect(output).toContain(event.subject);
 
             // Check that the start and end dates are included (just the date part)
@@ -57,7 +64,7 @@ describe('convertToICalendar', () => {
     });
 });
 
-const testInput = {
+const testCalendar = {
     "name": "Infinity IT Project",
     "code": "infinity-it",
     "office": "Scranton",

@@ -1,12 +1,12 @@
 {
   "name": "calendar-converter-tests",
   "version": "1.0.0",
-  "description": "",
+  "description": "This project is used to test the packaged calendar converter function.",
   "scripts": {
     "test": "vitest"
   },
+  "type": "module",
   "devDependencies": {
-    "jest": "^30.1.3"
-  },
-  "type": "module"
+    "vitest": "^3.2.4"
+  }
 }

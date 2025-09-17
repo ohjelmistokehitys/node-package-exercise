@@ -3,6 +3,10 @@ import convertToICalendar from '@example/calendar-converter';
 
 describe('convertToICalendar', () => {
 
+    it('converter module should export the function as default export', () => {
+        expect(typeof convertToICalendar).toBe('function');
+    });
+
     it('should take a calendar object and return a string', () => {
         const output = convertToICalendar(testInput);
 

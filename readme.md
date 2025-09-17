@@ -121,7 +121,7 @@ Perehdy npm:n dokumentaation sivuun [Specifying dependencies and devDependencies
 
 ## Vaihe 3: funktion luonti
 
-Toteuta pakettiisi JavaScript- tai TypeScript-tiedosto, jossa on funktio nimeltä `convertToICalendar`. Funktion tulee ottaa vastaan [JavaScript-kalenteriolio](./example-input.json) ja palauttaa [iCalendar-muotoinen merkkijono](./example-output.ics). Tämä funktio tulee "exportata" paketin oletusfunktiona.  Vaikka kyseessä on yksittäinen funktio, kannattaa sen toteutuksessa kenties hyödyntää erillisiä omia apufunktioita, joilla koodista tulee selkeämpää ja helpommin ymmärrettävää.
+Toteuta pakettiisi JavaScript- tai TypeScript-tiedosto, jossa on funktio nimeltä `convertToICalendar`. Funktion tulee ottaa vastaan [JavaScript-kalenteriolio](./example-input.json) ja palauttaa [iCalendar-muotoinen merkkijono](./example-output.ics). Tämä funktio tulee "exportata" paketin oletusfunktiona.  Vaikka kyseessä on yksittäinen funktio, kannattaa paketin toteutuksessa mahdollisesti hyödyntää tarkoituksenmukaista hakemistorakennetta ja jakaa koodia erillisiin funktioihin, joilla ratkaisusta tulee selkeä ja ymmärrettävä.
 
 Jos käytät TypeScriptiä, voit hyödyntää kalenterin tietorakenteisiin valmiiksi [luotuja tyyppejä](./utils/types.ts) sekä [utils/tsconfig.json](./utils/tsconfig.json)-tiedostoa, jotka voit yksinkertaisesti kopioida pakettisi sisään. Voit myös katsoa valmiista [testikoodista](./calendar-converter-tests/tests/calendarConverter.test.js), miten funktiosi on tarkoitus lopulta importata ja miten sitä voidaan käyttää.
 
@@ -137,7 +137,7 @@ export default function convertToICalendar() { ... }
 
 // CommonJS
 const ical = require('ical-generator');
-module.exports = convertToICalendar;
+module.exports = function convertToICalendar() { ... };
 ```
 
 Valitse jompikumpi tapa ja käytä sitä johdonmukaisesti sekä lähdekoodissa että asetustiedostoissa. [Määrittele `package.json`-tiedostoon, kumpaa moduulijärjestelmää pakettisi käyttää](https://nodejs.org/api/packages.html#type):

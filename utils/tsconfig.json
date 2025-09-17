@@ -1,0 +1,18 @@
+/* Visit https://aka.ms/tsconfig to read more about this file */
+{
+    "compilerOptions": {
+        "target": "es2020",
+        "rootDir": "./src/", /* This is where you put the TypeScript source files. */
+        "outDir": "./build/", /* This is where tsc will produce the output files. */
+        "module": "nodenext",
+        "esModuleInterop": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "moduleResolution": "nodenext", /* see https://www.typescriptlang.org/docs/handbook/modules/theory.html#module-resolution */
+        "declaration": true
+    },
+    "exclude": [
+        "node_modules",
+        "build"
+    ]
+}

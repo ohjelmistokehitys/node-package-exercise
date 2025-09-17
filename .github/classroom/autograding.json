@@ -1,0 +1,44 @@
+{
+    "tests": [
+        {
+            "name": "Init and install dependencies for `calendar-converter` package",
+            "setup": "",
+            "run": "npm install --prefix calendar-converter",
+            "input": "",
+            "output": "",
+            "comparison": "exact",
+            "timeout": 2,
+            "points": 20
+        },
+        {
+            "name": "Verify that an export exists in the package",
+            "setup": "",
+            "run": "grep -r export ./calendar-converter --exclude-dir=node_modules",
+            "input": "",
+            "output": "",
+            "comparison": "exact",
+            "timeout": 2,
+            "points": 20
+        },
+        {
+            "name": "Install the package in `calendar-converter-tests`",
+            "setup": "npm install --prefix calendar-converter-tests",
+            "run": "grep 'example/calendar-converter' ./calendar-converter-tests/package.json",
+            "input": "",
+            "output": "",
+            "comparison": "exact",
+            "timeout": 2,
+            "points": 30
+        },
+        {
+            "name": "Run tests in `calendar-converter-tests`",
+            "setup": "npm install --prefix calendar-converter-tests",
+            "run": "npm test --prefix calendar-converter-tests",
+            "input": "",
+            "output": "",
+            "comparison": "exact",
+            "timeout": 2,
+            "points": 30
+        }
+    ]
+}

@@ -78,7 +78,7 @@ Kokonainen esimerkki JSON-datan perusteella muodostettavasta iCalendar-muodosta 
 
 ## Vaihe 1: paketin luominen
 
-Repositoriosta löytyy valmiina kansio nimeltä [`calendar-converter`](./calendar-converter), johon npm-paketti toteutetaan. Siirry kyseiseen hakemistoon ja alusta sinne uusi npm-projekti [npm:n ohjeiden mukaisesti](https://docs.npmjs.com/creating-a-package_json_file).
+Repositoriosta löytyy valmiina kansio nimeltä [`calendar-converter`](./calendar-converter), johon npm-paketti toteutetaan. Siirry kyseiseen hakemistoon ja alusta sinne uusi npm-projekti [npm:n ohjeiden mukaisesti](https://docs.npmjs.com/creating-a-package-json-file).
 
 Anna paketillesi nimeksi `@example/calendar-converter`. `@example` on ns. [scope](https://docs.npmjs.com/about-scopes), joka erottaa pakettisi muista mahdollisesti samalla nimellä olevista paketeista. Tässä harjoituksessa `@example`-scopea käytetään varmistamaan, että paketin nimi ei vastaa mitään npm-rekisterissä olevaa tai sinne myöhemmin julkaistavaa pakettia.
 
@@ -133,11 +133,11 @@ Npm-paketteja voidaan toteuttaa eri moduulijärjestelmillä, joista yleisimmät 
 ```javascript
 // ES Modules
 import ical from 'ical-generator';
-export default function convertToICalendar() { ... }
+export default function convertToICalendar(jsonCalendar) { ... }
 
 // CommonJS
 const ical = require('ical-generator');
-module.exports = function convertToICalendar() { ... };
+module.exports = function convertToICalendar(jsonCalendar) { ... };
 ```
 
 Valitse jompikumpi tapa ja käytä sitä johdonmukaisesti sekä lähdekoodissa että asetustiedostoissa. [Määrittele `package.json`-tiedostoon, kumpaa moduulijärjestelmää pakettisi käyttää](https://nodejs.org/api/packages.html#type):
@@ -166,7 +166,7 @@ Muodostaessasi iCalendar-kalenteria, käytä apunasi seuraavaa taulukkoa, joka k
 | start_date     | DTSTART        | Aloituspäivämäärä ja -aika muutettuna UTC-muotoon                 |
 | end_date       | DTEND          | Lopetuspäivämäärä ja -aika muutettuna UTC-muotoon                 |
 
-Hyödynnä tarpeen mukaan omia yksikkötestejä, `console.log-tulostuksia` tai muita testausmenetelmiä, joilla voit varmistaa, että funktiosi toimii oikein. Hyödynnä myös annettua `example-input.json`-tiedostoa ja vertaa funktiosi tuottamaa iCalendar-muotoa annettuun `example-output.ics`-tiedostoon.
+Hyödynnä tarpeen mukaan omia yksikkötestejä, `console.log`-tulostuksia tai muita testausmenetelmiä, joilla voit varmistaa, että funktiosi toimii oikein. Hyödynnä myös annettua `example-input.json`-tiedostoa ja vertaa funktiosi tuottamaa iCalendar-muotoa annettuun `example-output.ics`-tiedostoon.
 
 > [!IMPORTANT]
 > Vaikka testaamisessa voi olla hyödyksi tulostaa tekstiä konsoliin tai käsitellä tiedostoja, lopullisen paketin ei tule sisältää ylimääräisiä tulostuksia tai tiedostokäsittelyjä.

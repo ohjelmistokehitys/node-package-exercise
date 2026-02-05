@@ -1,6 +1,6 @@
 # Npm paketit
 
-Tässä tehtävässä opit luomaan ja käsittelemään npm-paketteja. Npm (Node Package Manager) on Node.js:n mukana tuleva pakettien hallintajärjestelmä, joka mahdollistaa kolmannen osapuolen kirjastojen ja työkalujen asentamisen ja hallinnan projekteissasi:
+Tässä tehtävässä opit luomaan ja käsittelemään npm-paketteja. [Npm (Node Package Manager)](https://www.npmjs.com/) on Node.js:n mukana tuleva pakettien hallintajärjestelmä, joka mahdollistaa kolmannen osapuolen kirjastojen ja työkalujen asentamisen ja hallinnan projekteissasi:
 
 > *"The public npm registry is a database of JavaScript packages, each comprised of software and metadata. Open source developers and developers at companies use the npm registry to contribute packages to the entire community or members of their organizations, and download packages to use in their own projects."*
 >
@@ -87,7 +87,7 @@ Anna paketillesi nimeksi `@example/calendar-converter`. `@example` on ns. [scope
 
 Määrittele `package.json`-tiedostoon ohjeiden mukaisesti vähintään kentät `"name"`, `"version"` ja `"description"`. Versionumeron täytyy noudattaa [semver](https://semver.org/) -käytäntöjä, eli muotoa `<major>.<minor>.<patch>`. Voit harkintasi mukaan määritellä myös muita kenttiä.
 
-Tehdessäsi muutoksia koodiin, voit päivittää versionumeroa `npm version <major|minor|patch>`-komennolla, eli esimerkiksi `npm version patch`. `npm version` kasvattaa versionumeroa `package.json`-tiedostossa. Lisää tietoa aiheesta löydät [npm:n dokumentaatiosta](https://docs.npmjs.com/cli/commands/npm-version).
+Tehdessäsi muutoksia koodiin, voit päivittää versionumeroa `npm version <major|minor|patch>`-komennolla, eli esimerkiksi `npm version patch`. `npm version` kasvattaa versionumeroa `package.json`-tiedostossa ja luo git-tagin. Lisää tietoa aiheesta löydät [npm:n dokumentaatiosta](https://docs.npmjs.com/cli/commands/npm-version).
 
 Palaamme tehtävässä myöhemmin täydentämään `package.json`-tiedostoa uusilla kentillä.
 
@@ -100,7 +100,7 @@ Näiden ongelmien ratkaisemiseksi kannustamme käyttämään valmiita npm-pakett
 
 **ical-generator**
 
-Tätä tehtävää laadittaessa iCalendar-muodon generoinnissa on hyödynnetty [ical-generator](https://www.npmjs.com/package/ical-generator) -nimistä npm-pakettia, joka vaikuttaa suositulta ja hyvin dokumentoidulta. Lisäksi siitä löytyy TypeScript-tyypit valmiina ja se on lisensoitu avoimen lähdekoodin MIT-lisenssillä. ical-generatorin dokumentaatio ja esimerkkejä sen käyttämisestä löytyy GitHubista: https://github.com/sebbo2002/ical-generator.
+iCalendar-muodon generoinnissa voidaan hyödyntää erilaisia valmiita paketteja, kuten [ical-generator](https://www.npmjs.com/package/ical-generator). Tämä paketti vaikuttaa kirjoitushetkellä suositulta ja hyvin dokumentoidulta. Lisäksi siitä löytyy TypeScript-tyypit valmiina ja se on lisensoitu avoimen lähdekoodin MIT-lisenssillä. ical-generatorin dokumentaatio sekä esimerkkejä sen käyttämisestä löytyy GitHubista: https://github.com/sebbo2002/ical-generator.
 
 ical-generator tukee suoraan Luxon-kirjaston `DateTime`-olioita, joten se sopii hyvin yhteen Luxonin kanssa.
 
@@ -108,13 +108,12 @@ ical-generator tukee suoraan Luxon-kirjaston `DateTime`-olioita, joten se sopii 
 
 Lähdeaineistossa päivämäärät ja kellonajat on esitetty merkkijonoina ilman aikavyöhykettä sekä ilman tietoa kesä- ja talviajasta (esim. `"2027-09-02 09:00"`). [Luxon](https://www.npmjs.com/package/luxon)-niminen kirjasto tarjoaa hyvät työkalut päivämäärien ja kellonaikojen käsittelyyn, mukaan lukien aikavyöhykkeet ja kesä-/talviaika.
 
-Luxon ei sisällä valmiita TypeScript-tyyppejä, mutta ne löytyvät erikseen paketista [@types/luxon](https://www.npmjs.com/package/@types/luxon). Luxon on lisensoitu avoimen lähdekoodin MIT-lisenssillä ja sen dokumentaatio löytyy osoitteesta https://moment.github.io/luxon/.
-
+Luxon ei sisällä kirjoitushetkellä valmiita TypeScript-tyyppejä, mutta ne löytyvät erikseen paketista [@types/luxon](https://www.npmjs.com/package/@types/luxon). Luxon on lisensoitu avoimen lähdekoodin MIT-lisenssillä ja sen dokumentaatio löytyy osoitteesta https://moment.github.io/luxon/.
 
 
 **dependencies vs. devDependencies**
 
-Npm-paketit asennetaan komennolla `npm install <paketti>`, joka lataa valitun paketin `node_modules`-hakemistoon sekä päivittää tiedon riippuvuudesta `package.json`-tiedostoon. Kalenteridatan ja päivämäärien käsittelyyn tarvittavat paketit tulee asentaa "tuotantokäyttöön" (`dependencies`-kenttä), jotta ne asentuvat pakettisi mukana silloin, kun joku muu asentaa pakettisi. Sen sijaan kehitystyössä tarvittavat paketit, kuten TypeScript, tsx, testauskirjastot tai pakettien tyyppimäärittelyt, tulee asentaa "kehityskäyttöön" (`devDependencies`-kenttä) komennolla `npm install <paketti> --save-dev`.
+Npm-paketit asennetaan komennolla `npm install <paketti>`, joka lataa valitun paketin `node_modules`-hakemistoon sekä päivittää tiedon riippuvuudesta `package.json`- sekä `package-lock.json`-tiedostoihin. Kalenteridatan ja päivämäärien käsittelyyn tarvittavat paketit tulee asentaa "tuotantokäyttöön", jotta ne asentuvat pakettisi mukana silloin, kun joku muu asentaa pakettisi omaan projektiinsa. Sen sijaan kehitystyössä tarvittavat paketit, kuten TypeScript, tsx, testauskirjastot tai pakettien tyyppimäärittelyt, tulee asentaa "kehityskäyttöön" komennolla `npm install <paketti> --save-dev`.
 
 Perehdy npm:n dokumentaation sivuun [Specifying dependencies and devDependencies in a package.json file](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file) ja asenna tarvittavat paketit projektiisi.
 
@@ -123,8 +122,7 @@ Perehdy npm:n dokumentaation sivuun [Specifying dependencies and devDependencies
 
 Toteuta pakettiisi JavaScript- tai TypeScript-tiedosto, jossa on funktio nimeltä `convertToICalendar`. Funktion tulee ottaa vastaan [JavaScript-kalenteriolio](./example-input.json) ja palauttaa [iCalendar-muotoinen merkkijono](./example-output.ics). Tämä funktio tulee "exportata" paketin oletusfunktiona.  Vaikka kyseessä on yksittäinen funktio, kannattaa paketin toteutuksessa mahdollisesti hyödyntää tarkoituksenmukaista hakemistorakennetta ja jakaa koodia erillisiin funktioihin, joilla ratkaisusta tulee selkeä ja ymmärrettävä.
 
-Jos käytät TypeScriptiä, voit hyödyntää kalenterin tietorakenteisiin valmiiksi [luotuja tyyppejä](./utils/types.ts) sekä [utils/tsconfig.json](./utils/tsconfig.json)-tiedostoa, jotka voit yksinkertaisesti kopioida pakettisi sisään. Voit myös katsoa valmiista [testikoodista](./calendar-converter-tests/tests/calendarConverter.test.js), miten funktiosi on tarkoitus lopulta importata ja miten sitä voidaan käyttää.
-
+Jos käytät TypeScriptiä, voit hyödyntää kalenterin tietorakenteisiin valmiiksi [luotuja tyyppejä](./utils/types.ts) sekä [utils/tsconfig.json](./utils/tsconfig.json)-tiedostoa, jotka voit yksinkertaisesti kopioida [calendar-converter](./calendar-converter/)-hakemistoosi. Voit myös katsoa valmiista [testikoodista](./calendar-converter-tests/tests/calendarConverter.test.js), miten funktiosi on tarkoitus lopulta importata ja miten sitä voidaan käyttää.
 
 **CommonJS vs. ES Modules**
 
@@ -153,7 +151,9 @@ CommonJS on perinteinen ja erityisesti Node.js-ympäristössä käytetty vaihtoe
 
 ## Vaihe 4: kalenteridatan sekä päivämäärien käsittely
 
-Perehdy valitsemiisi npm-paketteihin ja hyödynnä niitä kalenteridatan ja päivämäärien käsittelyssä. Muunna JSON-muotoinen kalenteri iCalendar-muotoon käyttäen valitsemiasi työkaluja. Lähdeaineistossa päivämäärät on esitetty "paikallisessa ajassa" ilman tietoa aikavyöhykkeestä sekä kesä- ja talviajasta, joten hyödynnä kirjastoja, lähteitä ja tarvittaessa tekoälyä saadaksesi päivämäärät muunnettua oikeaan muotoon. Esimerkiksi [Luxon-kirjaston `DateTime.fromFormat`-metodi](https://moment.github.io/luxon/#/zones?id=creating-datetimes) voi olla hyödyllinen.
+Perehdy valitsemiisi npm-paketteihin ja hyödynnä niitä kalenteridatan ja päivämäärien käsittelyssä. Muunna JSON-muotoinen kalenteri iCalendar-muotoon käyttäen valitsemiasi työkaluja. Lähdeaineistossa päivämäärät on esitetty "paikallisessa ajassa" ilman tietoa aikavyöhykkeestä sekä kesä- ja talviajasta, joten hyödynnä kirjastoja, lähteitä ja tarvittaessa tekoälyä saadaksesi päivämäärät muunnettua oikeaan muotoon. 
+
+Esimerkiksi [Luxon-kirjaston `DateTime.fromFormat`-metodi](https://moment.github.io/luxon/#/zones?id=creating-datetimes) voi olla hyödyllinen.
 
 Muodostaessasi iCalendar-kalenteria, käytä apunasi seuraavaa taulukkoa, joka kuvaa JSON-datan ja iCalendar-muodon vastaavuudet:
 
@@ -169,12 +169,12 @@ Muodostaessasi iCalendar-kalenteria, käytä apunasi seuraavaa taulukkoa, joka k
 Hyödynnä tarpeen mukaan omia yksikkötestejä, `console.log`-tulostuksia tai muita testausmenetelmiä, joilla voit varmistaa, että funktiosi toimii oikein. Hyödynnä myös annettua `example-input.json`-tiedostoa ja vertaa funktiosi tuottamaa iCalendar-muotoa annettuun `example-output.ics`-tiedostoon.
 
 > [!IMPORTANT]
-> Vaikka testaamisessa voi olla hyödyksi tulostaa tekstiä konsoliin tai käsitellä tiedostoja, lopullisen paketin ei tule sisältää ylimääräisiä tulostuksia tai tiedostokäsittelyjä.
+> Vaikka testaamisessa voi olla hyödyksi tulostaa tekstiä konsoliin tai käsitellä tiedostoja, lopullisen paketin ei tule sisältää ylimääräisiä tulostuksia tai ylimääräistä tiedostokäsittelyjä.
 
 
 ## Vaihe 5: paketin valmistelu
 
-Jotta pakettisi olisi ulkopuolisten käyttäjien hyödyttävissä, sinun tulee määritellä `package.json`-tiedostoon muutamia lisäkenttiä. Lisäksi, jos käytät TypeScriptiä, sinun tulee kääntää TypeScript-lähdekoodisi JavaScriptiksi ennen paketin julkaisua ja käyttöönottoa.
+Jotta pakettisi olisi ulkopuolisten käyttäjien hyödyttävissä, sinun tulee määritellä `package.json`-tiedostoon muutamia lisäkenttiä. Lisäksi, jos käytät TypeScriptiä, sinun tulee myös kääntää TypeScript-lähdekoodisi JavaScriptiksi ennen paketin julkaisua ja käyttöönottoa.
 
 **`files` ja `.npmignore`**
 
@@ -184,7 +184,7 @@ Projektisi sisältää tyypillisesti tiedostoja, joita ei ole syytä julkaista l
 >
 > [Creating and publishing scoped public packages (docs.npmjs.com)](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages#reviewing-package-contents-for-sensitive-or-unnecessary-information)
 
-Pois jätettäviä tiedostoja voivat olla esimerkiksi testit, konfiguraatiotiedostot, ympäristömuuttujat ja kehitystyössä käytettävät skriptit. Määrittele `package.json`-tiedostoon [uusi `files`-kenttä, joka sisältää listan tiedostoista ja hakemistoista](https://docs.npmjs.com/cli/commands/npm-publish#files-included-in-package), jotka haluat sisällyttää pakettiisi. Näin varmistat, että asennettava paketti ei sisällä esimerkiksi TypeScript-lähdekoodeja ja konfiguraatiota, vaan pelkästään käännetyt tiedostot.
+Pois jätettäviä tiedostoja voivat olla esimerkiksi testit, konfiguraatiotiedostot, ympäristömuuttujat ja kehitystyössä käytettävät skriptit. Määrittele `package.json`-tiedostoon [uusi `files`-kenttä, joka sisältää listan tiedostoista ja hakemistoista](https://docs.npmjs.com/cli/commands/npm-publish#files-included-in-package), jotka haluat sisällyttää pakettiisi. Näin varmistat, että asennettava paketti ei sisällä esimerkiksi TypeScript-lähdekoodeja, konfiguraatiota tai ympäristömuuttujia, vaan pelkästään käännetyt tiedostot.
 
 Npm huomioi oletuksena `.gitignore`-tiedoston, jos se sijaitsee samassa hakemistossa kuin `package.json`, mutta voit käyttää myös `.npmignore`-tiedostoa, jos haluat määritellä erikseen, mitkä tiedostot jätetään pois paketista.
 
